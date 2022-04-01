@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
+use Illuminate\Support\Facades\DB;
 
 
 class MahasiswaController extends Controller
@@ -15,13 +16,25 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
+        // Mengambil semua isi tabel
+        $mahasiswas = Mahasiswa::paginate(3); 
+        
         //fungsi eloquent menampilkan data menggunakan pagination
-        $mahasiswas = Mahasiswa::all(); // Mengambil semua isi tabel
-        $posts = Mahasiswa::orderBy('Nim', 'desc')->paginate(6);
+        $posts = Mahasiswa::orderBy('Nim', 'desc')->paginate(3);
         return view('mahasiswas.index', compact('mahasiswas'));
         with('i', (request()->input('page', 1) - 1) * 5);
 
+    }
 
+    public function search(Request $request){
+        //menangkap data pencarian
+        $cari = $request->search;
+
+        //mengambil data dari table Mahasiswa sesuai pencarian data
+        $mahasiswas = Mahasiswa::where('Nama','like',"%".$cari."%")->paginate();
+
+        //mengiriim data mahasiswa ke view index
+        return view('mahasiswas.index', compact('mahasiswas'));
     }
 
     /**
@@ -49,6 +62,9 @@ class MahasiswaController extends Controller
             'Kelas' => 'required',
             'Jurusan' => 'required',
             'No_Handphone' => 'required',
+            'Email' => 'required',
+            'Alamat' => 'required',
+            'TanggalLahir' => 'required',
         ]);
         
         //fungsi eloquent untuk menambah data
@@ -101,6 +117,9 @@ class MahasiswaController extends Controller
             'Kelas' => 'required',
             'Jurusan' => 'required',
             'No_Handphone' => 'required',
+            'Email' => 'required',
+            'Alamat' => 'required',
+            'TanggalLahir' => 'required',
         ]);
         
         //fungsi eloquent untuk mengupdate data inputan kita

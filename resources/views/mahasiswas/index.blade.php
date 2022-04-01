@@ -8,6 +8,12 @@
             <div class="float-right my-2">
                 <a class="btn btn-success" href="{{ route('mahasiswas.create') }}"> Input Mahasiswa</a>
             </div>
+            <div class="float-left my-2">
+                <form action="{{ route('search') }}" method="GET">
+                     <input type="text" name="search" placeholdeer="Cari Mahasiswa" id="search">
+                    <input type="submit" value="search">
+                </form>
+            </div>
         </div>
     </div>
  
@@ -24,6 +30,9 @@
          <th>Kelas</th>
          <th>Jurusan</th>
          <th>No_Handphone</th>
+         <th>Email</th>
+         <th>Alamat</th>
+         <th>TanggalLahir</th>
          <th width="280px">Action</th>
     </tr>
     @foreach ($mahasiswas as $Mahasiswa)
@@ -33,6 +42,9 @@
         <td>{{ $Mahasiswa->Kelas }}</td>
         <td>{{ $Mahasiswa->Jurusan }}</td>
         <td>{{ $Mahasiswa->No_Handphone }}</td>
+        <td>{{ $Mahasiswa->Email }}</td>
+        <td>{{ $Mahasiswa->Alamat }}</td>
+        <td>{{ $Mahasiswa->TanggalLahir }}</td>
         <td>
             <form action="{{ route('mahasiswas.destroy',$Mahasiswa->Nim) }}" method="POST">
                 <a class="btn btn-info" href="{{ route('mahasiswas.show',$Mahasiswa->Nim) }}">Show</a>
@@ -45,4 +57,6 @@
     </tr>
     @endforeach
  </table>
+ {{ $mahasiswas->links() }}
 @endsection
+

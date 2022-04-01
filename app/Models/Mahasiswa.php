@@ -28,6 +28,9 @@ class Mahasiswa extends Model
         'Kelas',
         'Jurusan',
         'No_Handphone',
+        'Email',
+        'Alamat',
+        'TanggalLahir',
     ];
 
 }
